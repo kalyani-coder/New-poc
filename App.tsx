@@ -7,9 +7,10 @@ import Region from './components/Region'
 
 const App = () => {
   return (
-    <View>
+    <View style={{flex : 1 }}>
+      <LoginScreen/>
       
-  <CreateNewRequest/>
+  
     </View>
   )
 }
