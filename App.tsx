@@ -9,7 +9,7 @@ const App = () => {
   return (
     <View>
       
-   <Region/>
+  <CreateNewRequest/>
     </View>
   )
 }

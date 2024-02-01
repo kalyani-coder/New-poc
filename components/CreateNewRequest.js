@@ -69,8 +69,10 @@ const CalendarIcon = () => (
 );
 
 const CreateNewRequest = () => {
-  const [checkedYes, setCheckedYes] = useState(false);
-  const [checkedNo, setCheckedNo] = useState(false);
+  const [checkedYes1, setCheckedYes1] = useState(false);
+const [checkedNo1, setCheckedNo1] = useState(false);
+const [checkedYes2, setCheckedYes2] = useState(false);
+const [checkedNo2, setCheckedNo2] = useState(false);
   const [purpose, setPurpose] = useState(null);
   const [parameterType, setParameterType] = useState(9);
   const [requestTitle, setRequestTitle] = useState('');
@@ -117,12 +119,33 @@ const CreateNewRequest = () => {
   const handleDeleteFile = () => {
     setSelectedFile(null);
   };
+  const handleCheckYes1 = () => {
+    setCheckedYes1(!checkedYes1);
+    if (checkedNo1) setCheckedNo1(false);
+  };
+  
+  const handleCheckNo1 = () => {
+    setCheckedNo1(!checkedNo1);
+    if (checkedYes1) setCheckedYes1(false);
+  };
+  
+  const handleCheckYes2 = () => {
+    setCheckedYes2(!checkedYes2);
+    if (checkedNo2) setCheckedNo2(false);
+  };
+  
+  const handleCheckNo2 = () => {
+    setCheckedNo2(!checkedNo2);
+    if (checkedYes2) setCheckedYes2(false);
+  };
 
   const handleNextButtonPress = async () => {
     try {
       const requestData = {
-        checkedYes,
-        checkedNo,
+        checkedYes1,
+        checkedNo1,
+        checkedYes2,
+        checkedNo2,
         purpose,
         requestTitle,
         requestDate,
@@ -136,27 +159,33 @@ const CreateNewRequest = () => {
         contactDetails,
         selectedFile,
       };
-
-      const response = await axios.post(
-        'http://crnmobileapp.com/api/CRN/CRNRequestAPI',
-        requestData,
-      );
-
-      if (response.data.success) {
-        // Assuming you are using React Navigation
-        // navigation.navigate('NextScreen', { data: response.data });
-
-        // Log the data sent to the next screen
-        console.log('Data sent to the next screen:', response.data);
-      } else {
-        console.error('API request failed:', response.data.error);
-        // Handle API error, show an alert, etc.
-      }
+  
+      // Uncomment this section when you want to make an API request
+      // const response = await axios.post(
+      //   'http://crnmobileapp.com/api/CRN/CRNRequestAPI',
+      //   requestData,
+      // );
+  
+      // Console log the data for testing
+      console.log(requestData);
+  
+      // Uncomment this section to handle the API response
+      // if (response.data.success) {
+      //   // Assuming you are using React Navigation
+      //   // navigation.navigate('NextScreen', { data: response.data });
+  
+      //   // Log the data sent to the next screen
+      //   console.log('Data sent to the next screen:', response.data);
+      // } else {
+      //   console.error('API request failed:', response.data.error);
+      //   // Handle API error, show an alert, et̀c.
+      // }
     } catch (error) {
       console.error('Error making API request:', error);
       // Handle network errors, unexpected errors, etc.
     }
   };
+  
 
   const handleCurrentLocationChange = value => {
     setCurrentLocation(value);
@@ -170,33 +199,35 @@ const CreateNewRequest = () => {
     setGoal(text);
   };
 
-  const handleCheckYes = () => {
-    setCheckedYes(!checkedYes);
-    if (checkedNo) setCheckedNo(false);
-  };
+  // const handleCheckYes = () => {
+  //   setCheckedYes(!checkedYes);
+  //   if (checkedNo) setCheckedNo(false);
+  // };
 
-  const handleCheckNo = () => {
-    setCheckedNo(!checkedNo);
-    if (checkedYes) setCheckedYes(false);
-  };
+  // const handleCheckNo = () => {
+  //   setCheckedNo(!checkedNo);
+  //   if (checkedYes) setCheckedYes(false);
+  // };
 
   const handlePurposeChange = value => {
     setPurpose(value);
   };
-
-  const handleRequestDateChange = (event, selectedDate) => {
+  const handleRequestDateChange = selectedDate => {
     setShowRequestDatePicker(false);
     if (selectedDate) {
       setRequestDate(selectedDate);
     }
   };
-
-  const handleDeadlineDateChange = (event, selectedDate) => {
+  
+  const handleDeadlineDateChange = selectedDate => {
     setShowDeadlineDatePicker(false);
     if (selectedDate) {
       setDeadlineDate(selectedDate);
     }
   };
+  
+
+
 
   const showRequestDatePickerModal = () => {
     setShowRequestDatePicker(true);
@@ -245,84 +276,85 @@ const CreateNewRequest = () => {
 
       {/* "Request Information" Section */}
       <View style={{marginTop: 16, paddingHorizontal: 10}}>
-        <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 8}}>
-          Request Information
-        </Text>
+  <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 8}}>
+    Request Information
+  </Text>
 
-        {/* "Have You Checked" Section */}
-        <View style={{marginBottom: 8, paddingHorizontal: 10}}>
-          <Text>Have You Checked?</Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 8,
-              paddingHorizontal: 10,
-            }}>
-            <CheckBox
-              checked={checkedYes}
-              onPress={handleCheckYes}
-              containerStyle={{padding: 0, borderRadius: 15}}
-            />
-            <Text style={{marginLeft: 4}}>Yes</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              paddingHorizontal: 10,
-            }}>
-            <CheckBox
-              checked={checkedNo}
-              onPress={handleCheckNo}
-              containerStyle={{padding: 0, borderRadius: 15}}
-            />
-            <Text style={{marginLeft: 4}}>No</Text>
-          </View>
-        </View>
+  {/* "Have You Checked" Section */}
+  <View style={{marginBottom: 8, paddingHorizontal: 10}}>
+    <Text>Have You Checked?</Text>
+  </View>
+  <View style={{flexDirection: 'row'}}>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+        paddingHorizontal: 10,
+      }}>
+      <CheckBox
+        checked={checkedYes1}
+        onPress={handleCheckYes1}
+        containerStyle={{padding: 0, borderRadius: 15}}
+      />
+      <Text style={{marginLeft: 4}}>Yes</Text>
+    </View>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+      }}>
+      <CheckBox
+        checked={checkedNo1}
+        onPress={handleCheckNo1}
+        containerStyle={{padding: 0, borderRadius: 15}}
+      />
+      <Text style={{marginLeft: 4}}>No</Text>
+    </View>
+  </View>
 
-        {/* "Non Member Request" Section */}
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: 8,
-            paddingHorizontal: 10,
-          }}>
-          <Text>Non Member Request</Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 8,
-              paddingHorizontal: 10,
-            }}>
-            <CheckBox
-              checked={checkedYes}
-              onPress={handleCheckYes}
-              containerStyle={{padding: 0, borderRadius: 15}}
-            />
-            <Text style={{marginLeft: 4}}>Yes</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              paddingHorizontal: 10,
-            }}>
-            <CheckBox
-              checked={checkedNo}
-              onPress={handleCheckNo}
-              containerStyle={{padding: 0, borderRadius: 15}}
-            />
-            <Text style={{marginLeft: 4}}>No</Text>
-          </View>
-        </View>
-      </View>
+  {/* "Non Member Request" Section */}
+  <View
+    style={{
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 8,
+      paddingHorizontal: 10,
+    }}>
+    <Text>Non Member Request</Text>
+  </View>
+  <View style={{flexDirection: 'row'}}>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+        paddingHorizontal: 10,
+      }}>
+      <CheckBox
+        checked={checkedYes2}
+        onPress={handleCheckYes2}
+        containerStyle={{padding: 0, borderRadius: 15}}
+      />
+      <Text style={{marginLeft: 4}}>Yes</Text>
+    </View>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+      }}>
+      <CheckBox
+        checked={checkedNo2}
+        onPress={handleCheckNo2}
+        containerStyle={{padding: 0, borderRadius: 15}}
+      />
+      <Text style={{marginLeft: 4}}>No</Text>
+    </View>
+  </View>
+</View>
+
 
       {/* "Purpose" Section */}
       <ModelDropdown
@@ -389,11 +421,10 @@ const CreateNewRequest = () => {
         {showRequestDatePicker && (
           <DatePicker
           date={requestDate}
-            mode= "date"
-            
-            display="default"
-            onDateChange={handleRequestDateChange}
-          />
+          mode="date"  // Use "date" for date pickers
+          display="default"
+          onDateChange={handleRequestDateChange}
+        />
         )}
       </View>
 
@@ -428,7 +459,7 @@ const CreateNewRequest = () => {
         {showDeadlineDatePicker && (
           <DatePicker
           date={deadlineDate}
-            mode="date"
+          mode="date" 
           
             display="default"
             onDateChange={handleDeadlineDateChange}
