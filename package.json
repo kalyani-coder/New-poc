@@ -10,8 +10,18 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^7.6.2",
+    "@react-native-picker/picker": "^2.6.1",
+    "@rneui/base": "^0.0.0-edge.2",
+    "@rneui/themed": "^0.0.0-edge.2",
+    "axios": "^1.6.7",
     "react": "18.2.0",
-    "react-native": "0.73.3"
+    "react-native": "0.73.3",
+    "react-native-date-picker": "^4.3.5",
+    "react-native-datepicker": "^1.7.2",
+    "react-native-elements": "^3.4.3",
+    "react-native-vector-icons": "^10.0.3",
+    "twrnc": "^3.6.8"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
