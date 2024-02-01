@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Modal
 } from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import DatePicker from 'react-native-date-picker'
@@ -632,6 +633,7 @@ const [checkedNo2, setCheckedNo2] = useState(false);
             </TouchableOpacity>
           )}
         </View>
+        
 
         {/* "Next" Button */}
         <TouchableOpacity
