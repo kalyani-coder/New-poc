@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import tw from 'twrnc';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
   const [userId, setUserId] = useState('');
@@ -13,6 +14,7 @@ const LoginScreen = () => {
   useEffect(() => {
     // This useEffect will run whenever the token state is updated
     console.log("token", token);
+ 
   }, [token]);
 
   const handleLogin = async () => {
@@ -31,8 +33,18 @@ const LoginScreen = () => {
 
     try {
       const response = await axios.post('http://crnmobileapp.com/api/CRN/CRNRequestAPI', requestBody);
-      const data = response.data;
-      setToken(data);
+      const data = JSON.parse(response.data);
+      
+
+
+      
+      setToken(data.ResponseMessage);
+
+      const newtoken = JSON.stringify(data.ResponseMessage)
+      await AsyncStorage.setItem('token' , newtoken)
+      const asynctoken = await AsyncStorage.getItem('token')
+      console.log("asynctoken " , asynctoken)
+      
     } catch (error) {
       setError('An unexpected error occurred');
       console.error('Error:', error.message);
@@ -45,6 +57,7 @@ const LoginScreen = () => {
 
   return (
     <ScrollView contentContainerStyle={tw`flex-grow bg-gray-100`}>
+     
       <View style={tw`flex-1 justify-center items-center`}>
         <Text style={tw`text-2xl font-bold mb-4`}>Welcome to CRN</Text>
         <Text style={tw`text-lg font-bold mb-4`}>Login to Your Account</Text>
@@ -66,14 +79,21 @@ const LoginScreen = () => {
             style={tw`p-2 mb-4 rounded-md bg-blue-300`}
             onPress={handleLogin}
             disabled={loading}>
-            <Text style={tw`text-black text-center`}>{loading ? 'Logging in...' : 'Login'}</Text>
+              { loading ? 
+              <View>
+                     <ActivityIndicator style={{
+        marginTop : 15
+      }} animating={true} size="small" color="#000"/>
+              </View> : 
+               <Text style={tw`text-black text-center`}>Login</Text>
+
+              }
+           
           </TouchableOpacity>
 
           {error ? <Text style={tw`text-red-500 mb-4`}>{error}</Text> : null}
         </View>
-        <Text>
-  token : {token.ResponseMessage}
-</Text>
+   
       </View>
     </ScrollView>
   );
