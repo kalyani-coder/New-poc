@@ -129,7 +129,7 @@ export default function Region() {
             type="outline"
             titleStyle={{ color: '#485f9b' }}
             buttonStyle={[styles.button, { borderColor: '#485f9b' }]}
-            onPress={() => console.log('Back pressed')}
+            onPress={() => navigation.navigate('createNewRequest')}
           />
           <Button
             title="Next"

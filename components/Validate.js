@@ -69,9 +69,9 @@ const Validate = ({ route }) => {
   return (
     <ScrollView contentContainerStyle={tw`flex-grow bg-gray-100`}>
       <View style={tw`flex-1 justify-center items-center`}>
-        <Text style={tw`text-black font-bold`}>validate candidate</Text>
+        <Text style={tw`text-black font-bold my-4`}>validate candidate</Text>
         <TouchableOpacity
-          style={tw`p-2 mb-4 rounded-md bg-blue-300`}
+          style={tw`p-2 mb-4 rounded-md bg-blue-300 w-80`}
           onPress={handleValidate}
         >
           <Text style={tw`text-black text-center`}>Validate</Text>

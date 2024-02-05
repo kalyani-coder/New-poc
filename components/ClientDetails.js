@@ -18,6 +18,7 @@ const ClientDetails = () => {
 
     const handleBack = () => {
         console.log('back pressed');
+        navigation.navigate('region')
     };
 
     const handleSubmit = () => {
@@ -148,7 +149,7 @@ const ClientDetails = () => {
                         <Text style={styles.buttonText}>Back</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={()=>{
-                        navigation.navigate('region')
+                      console.log("submitted")
 
                     }}>
                         <Text style={styles.buttonText}>Submit</Text>

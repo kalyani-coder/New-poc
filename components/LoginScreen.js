@@ -51,59 +51,59 @@ const LoginScreen = () => {
       }
     } catch (error) {
       setError('An unexpected error occurred');
-      console.error('Error:', error);
+      console.error('Error:', error.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <ScrollView contentContainerStyle={tw`flex-grow bg-gray-100`}>
-    <View style={tw`flex-1s pl-5 pr-5`}>
-      <Text style={tw`text-3xl font-bold mb-2`}>Welcome to CRN</Text>
-      <Text style={tw`text-lg font-bold mb-4`}>Login to Your Account</Text>
-      <View style={tw` w-full`}>
-        <TextInput
-          style={tw`border border-gray-300 p-2 mb-4 rounded-md text-black `}
-          placeholder="Username"
-          onChangeText={(text) => setUserId(text)}
-          value={userId}
-        />
-        <TextInput
-          style={tw`border border-gray-300 p-2 mb-4 rounded-md text-black`}
-          placeholder="Password"
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-        />
-<Text
-style={tw`text-blue-800 py-5`}>
-Forget Password?
-</Text>
+    <View style={tw`flex-1 bg-gray-100 mt-4`}>
+      <ScrollView contentContainerStyle={tw`flex-grow`}>
+        <View style={tw`pl-5 pr-5 justify-between flex-1`}>
+          <View>
+            <Text style={tw`text-3xl font-bold mb-2 pt-5`}>Welcome to CRN</Text>
+            <Text style={tw`text-lg font-bold mb-4`}>Login to Your Account</Text>
+            <View style={tw` w-full`}>
+              <TextInput
+                style={tw`border border-gray-300 p-2 mb-4 rounded-md text-black `}
+                placeholder="Username"
+                onChangeText={(text) => setUserId(text)}
+                value={userId}
+              />
+              <TextInput
+                style={tw`border border-gray-300 p-2 mb-4 rounded-md text-black`}
+                placeholder="Password"
+                secureTextEntry={true}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+              />
+              <Text style={tw`text-blue-800 py-5`}>Forget Password?</Text>
+              {error ? <Text style={tw`text-red-500 mb-4`}>{error}</Text> : null}
+            </View>
+          </View>
+        </View>
+      </ScrollView>
 
-        
-
-        {error ? <Text style={tw`text-red-500 mb-4`}>{error}</Text> : null}
-      </View>
-
-      
-    </View>
-
-    <TouchableOpacity
-          style={tw`p-2 mb-4 rounded-md bg-blue-300`}
+      <View style={tw`p-2 mb-4 rounded-md bg-blue-300 mx-6 rounded-md`}>
+        <TouchableOpacity
           onPress={handleLogin}
           disabled={loading}>
           {loading ? (
-            <View>
-              <ActivityIndicator style={{ marginTop: 15 }} animating={true} size="small" color="#000" />
-            </View>
+            <ActivityIndicator style={{ marginTop: 15 }} animating={true} size="small" color="#000" />
           ) : (
-            <Text style={tw`text-black text-center`}>Login</Text>
+            <Text style={tw`text-black text-center `}>Login</Text>
           )}
         </TouchableOpacity>
-  </ScrollView>
 
+        
+      </View>
+      <Text style={tw`text-center py-3`}>
+          Or Become a Member 
+        </Text>
+    </View>
   );
 };
 
 export default LoginScreen;
+ 
