@@ -1,9 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 import { Button, CheckBox } from 'react-native-elements';
 
+
 export default function Region() {
+  const navigation = useNavigation()
   const [collapsedRegions, setCollapsedRegions] = useState({});
   const [checkedLocations, setCheckedLocations] = useState({});
   const [selectedRegions, setSelectedRegions] = useState({});
@@ -130,9 +133,10 @@ export default function Region() {
           />
           <Button
             title="Next"
+            
             titleStyle={styles.buttonText}
             buttonStyle={[styles.button, { backgroundColor: '#485f9b' }]}
-            onPress={() => console.log('Next pressed')}
+            onPress={() => navigation.navigate('clientDetails')}
           />
         </View>
       </ScrollView>

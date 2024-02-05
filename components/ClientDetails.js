@@ -1,10 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+
 
 import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const ClientDetails = () => {
+    const navigation = useNavigation();
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');
     const [zipCode, setZipCode] = useState('');
@@ -144,7 +147,10 @@ const ClientDetails = () => {
                     <TouchableOpacity style={styles.button} onPress={handleBack}>
                         <Text style={styles.buttonText}>Back</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                    <TouchableOpacity style={styles.button} onPress={()=>{
+                        navigation.navigate('region')
+
+                    }}>
                         <Text style={styles.buttonText}>Submit</Text>
                     </TouchableOpacity>
                 </View>

@@ -641,7 +641,7 @@ const [checkedNo2, setCheckedNo2] = useState(false);
         {/* "Next" Button */}
         <TouchableOpacity
           onPress={()=>{
-            navigation.navigate('clientDetails')
+            navigation.navigate('region')
           }}
           style={{
             backgroundColor: '#2ecc71',

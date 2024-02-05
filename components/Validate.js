@@ -38,16 +38,7 @@ const Validate = ({ route }) => {
       setApiResponse(response.data);
   
       // Construct a formatted string representation of the API response
-      const formattedResponse = `API Result:\n
-  Member ID: ${response.data.Member_ID}\n
-  Member Name: ${response.data.Member_Name}\n
-  Member Status ID: ${response.data.Member_Status_ID}\n
-  Member Type ID: ${response.data.Member_Type_ID}\n
-  Member Email: ${response.data.Member_Email}\n
-  Member IsAdmin: ${response.data.Member_IsAdmin ? 'Yes' : 'No'}\n
-  Member Organization Name: ${response.data.Member_Orgnization_Name}\n
-  ErrorCode: ${response.data.ErrorCode}\n
-  ResponseMessage: ${response.data.ResponseMessage}`;
+      const formattedResponse = ('API Response', JSON.stringify(response.data, null, 2));
   
       // Display the API response in an alert with "Next" and "Cancel" buttons
       Alert.alert(
@@ -57,6 +48,9 @@ const Validate = ({ route }) => {
           {
             text: 'Cancel',
             style: 'cancel',
+            onPress : ()=>{
+              navigation.navigate('Login')
+            }
           },
           {
             text: 'Next',
