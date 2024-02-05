@@ -6,6 +6,7 @@ import ClientDetails from './components/ClientDetails'
 import Region from './components/Region'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import Validate from './components/Validate'
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const App = () => {
   component={LoginScreen}
 />
 <Stack.Screen name='createNewRequest' component={CreateNewRequest}/>
+<Stack.Screen name='validate' component={Validate}/>
 
   
   </Stack.Navigator>

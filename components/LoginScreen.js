@@ -3,8 +3,10 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator 
 import tw from 'twrnc';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
@@ -44,6 +46,10 @@ const LoginScreen = () => {
       await AsyncStorage.setItem('token' , newtoken)
       const asynctoken = await AsyncStorage.getItem('token')
       console.log("asynctoken " , asynctoken)
+
+      navigation.navigate('validate' , {newtoken})
+
+      
       
     } catch (error) {
       setError('An unexpected error occurred');
