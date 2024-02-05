@@ -4,14 +4,27 @@ import LoginScreen from './components/LoginScreen'
 import CreateNewRequest from './components/CreateNewRequest'
 import ClientDetails from './components/ClientDetails'
 import Region from './components/Region'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+const Stack = createNativeStackNavigator();
+
 
 const App = () => {
   return (
-    <View style={{flex : 1 }}>
-      <LoginScreen/>
-      
+    <NavigationContainer>
+
+    <Stack.Navigator initialRouteName='Login'>
+    <Stack.Screen
+ 
+  name="Login"
+  component={LoginScreen}
+/>
+<Stack.Screen name='createNewRequest' component={CreateNewRequest}/>
+
   
-    </View>
+  </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
