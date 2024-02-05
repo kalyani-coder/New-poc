@@ -23,6 +23,7 @@ const App = () => {
 />
 <Stack.Screen name='createNewRequest' component={CreateNewRequest}/>
 <Stack.Screen name='validate' component={Validate}/>
+<Stack.Screen name='clientDetails' component={ClientDetails}/>
 
   
   </Stack.Navigator>

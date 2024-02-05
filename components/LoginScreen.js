@@ -1,3 +1,4 @@
+// LoginScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import tw from 'twrnc';
@@ -16,7 +17,6 @@ const LoginScreen = () => {
   useEffect(() => {
     // This useEffect will run whenever the token state is updated
     console.log("token", token);
- 
   }, [token]);
 
   const handleLogin = async () => {
@@ -36,21 +36,19 @@ const LoginScreen = () => {
     try {
       const response = await axios.post('http://crnmobileapp.com/api/CRN/CRNRequestAPI', requestBody);
       const data = JSON.parse(response.data);
-      
 
+      if (data.ErrorCode === '0') {
+        setToken(data.ResponseMessage);
 
-      
-      setToken(data.ResponseMessage);
+        const newToken = JSON.stringify(data.ResponseMessage);
+        await AsyncStorage.setItem('token', newToken);
+        const asyncToken = await AsyncStorage.getItem('token');
+        console.log('asyncToken ', asyncToken);
 
-      const newtoken = JSON.stringify(data.ResponseMessage)
-      await AsyncStorage.setItem('token' , newtoken)
-      const asynctoken = await AsyncStorage.getItem('token')
-      console.log("asynctoken " , asynctoken)
-
-      navigation.navigate('validate' , {newtoken})
-
-      
-      
+        navigation.navigate('validate', { newToken });
+      } else {
+        setError(data.ResponseMessage || 'An unexpected error occurred');
+      }
     } catch (error) {
       setError('An unexpected error occurred');
       console.error('Error:', error.message);
@@ -59,11 +57,8 @@ const LoginScreen = () => {
     }
   };
 
-
-
   return (
     <ScrollView contentContainerStyle={tw`flex-grow bg-gray-100`}>
-     
       <View style={tw`flex-1 justify-center items-center`}>
         <Text style={tw`text-2xl font-bold mb-4`}>Welcome to CRN</Text>
         <Text style={tw`text-lg font-bold mb-4`}>Login to Your Account</Text>
@@ -85,21 +80,17 @@ const LoginScreen = () => {
             style={tw`p-2 mb-4 rounded-md bg-blue-300`}
             onPress={handleLogin}
             disabled={loading}>
-              { loading ? 
+            {loading ? (
               <View>
-                     <ActivityIndicator style={{
-        marginTop : 15
-      }} animating={true} size="small" color="#000"/>
-              </View> : 
-               <Text style={tw`text-black text-center`}>Login</Text>
-
-              }
-           
+                <ActivityIndicator style={{ marginTop: 15 }} animating={true} size="small" color="#000" />
+              </View>
+            ) : (
+              <Text style={tw`text-black text-center`}>Login</Text>
+            )}
           </TouchableOpacity>
 
           {error ? <Text style={tw`text-red-500 mb-4`}>{error}</Text> : null}
         </View>
-   
       </View>
     </ScrollView>
   );

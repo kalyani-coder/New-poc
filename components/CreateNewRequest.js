@@ -9,11 +9,13 @@ import {
 } from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import DatePicker from 'react-native-date-picker'
+import { useNavigation } from '@react-navigation/native';
 
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios'; // Import axios for API requests
 
 const ModelDropdown = ({label, options, selectedValue, onValueChange}) => {
+ 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -70,6 +72,7 @@ const CalendarIcon = () => (
 );
 
 const CreateNewRequest = () => {
+  const navigation = useNavigation()
   const [checkedYes1, setCheckedYes1] = useState(false);
 const [checkedNo1, setCheckedNo1] = useState(false);
 const [checkedYes2, setCheckedYes2] = useState(false);
@@ -637,7 +640,9 @@ const [checkedNo2, setCheckedNo2] = useState(false);
 
         {/* "Next" Button */}
         <TouchableOpacity
-          onPress={handleNextButtonPress}
+          onPress={()=>{
+            navigation.navigate('clientDetails')
+          }}
           style={{
             backgroundColor: '#2ecc71',
             padding: 16,
