@@ -37,11 +37,19 @@ const Validate = ({ route }) => {
   
       const response = await axios.post(apiEndpoint, requestBody);
       console.log('API Response:', response.data);
+      const data = response.data 
+
+      const apiResponse = JSON.parse(data);
+      
+
   
       setApiResponse(response.data);
   
       // Construct a formatted string representation of the API response
-      const formattedResponse = ('API Response', JSON.stringify(response.data, null, 2));
+      const formattedResponse = (
+        'API Response',
+        `Member ID: ${apiResponse.Member_ID}\nMember Name: ${apiResponse.Member_Name}\nMember Status ID: ${apiResponse.Member_Status_ID}\nMember Type ID: ${apiResponse.Member_Type_ID}\nMember Email: ${apiResponse.Member_Email}\nIs Admin: ${apiResponse.Member_IsAdmin}\nOrganization Name: ${apiResponse.Member_Orgnization_Name}\nErrorCode: ${apiResponse.ErrorCode}\nResponse Message: ${apiResponse.ResponseMessage}`
+      );
   
       // Display the API response in an alert with "Next" and "Cancel" buttons
       Alert.alert(
