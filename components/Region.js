@@ -129,7 +129,9 @@ export default function Region() {
             type="outline"
             titleStyle={{ color: '#485f9b' }}
             buttonStyle={[styles.button, { borderColor: '#485f9b' }]}
-            onPress={() => navigation.navigate('createNewRequest')}
+            onPress={() => // Navigating back with newToken
+            navigation.goBack()
+            }
           />
           <Button
             title="Next"

@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  Alert
+  Alert,
+  StyleSheet
 } from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import DatePicker from 'react-native-date-picker'
@@ -196,6 +197,13 @@ const [checkedNo2, setCheckedNo2] = useState(false);
   
       // Log the API response for testing
       console.log("API Response:", response.data);
+
+      const formattedRequestData = (
+        'Request Data',
+        `Request Title: ${requestData.Request_Title}\nPurpose: ${requestData.Purpose}\nCreated By: ${requestData.CreatedBy}\nRequest Date: ${requestData.Request_Date}\nDeadline: ${requestData.Deadline}\nStatus: ${requestData.Status}\nClosed: ${requestData.Closed}\nItem Code ID: ${requestData.Item_Code_ID}\nMember ID: ${requestData.Member_ID}\nOrganization Name: ${requestData.Organization_Name}\nRequest Purpose: ${requestData.Request_Purpose}\nDescription: ${requestData.Description}\nResponse Notes: ${requestData.Response_Notes}\nOther Contact Notes: ${requestData.Other_Contact_Notes}\nClient Location Name: ${requestData.Client_Location_Name}\nFullFilled By Member ID: ${requestData.FullFilledBy_Member_ID}\nFEmail: ${requestData.FEmail}\nFMemberName: ${requestData.FMemberName}\nFOrganization Name: ${requestData.FOrganization_Name}\nClose Date: ${requestData.Close_Date}`
+      );
+      Alert.alert('Api Response' , formattedRequestData)
+      
   
       // Handle the API response
       if (response.data.success) {
@@ -685,6 +693,22 @@ const [checkedNo2, setCheckedNo2] = useState(false);
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scrollView: {
+    margin: 15,
+    maxHeight: 300,
+  },
+  jsonText: {
+    fontSize: 12,
+    color: 'black',
+  },
+});
 
 
 export default CreateNewRequest ; 
