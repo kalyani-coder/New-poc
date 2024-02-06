@@ -45,7 +45,7 @@ const LoginScreen = () => {
         const asyncToken = await AsyncStorage.getItem('token');
         console.log('asyncToken ', asyncToken);
 
-        navigation.navigate('validate', { newToken });
+        navigation.navigate('validate', { newToken  , NewRequest : requestBody});
       } else {
         setError(data.ResponseMessage || 'An unexpected error occurred');
       }

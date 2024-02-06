@@ -71,7 +71,12 @@ const CalendarIcon = () => (
   />
 );
 
-const CreateNewRequest = () => {
+const CreateNewRequest = ({route}) => {
+
+  const { newToken } = route.params;
+  console.log("validate token ", newToken);
+
+  const justToken = JSON.parse(newToken);
   const navigation = useNavigation()
   const [checkedYes1, setCheckedYes1] = useState(false);
 const [checkedNo1, setCheckedNo1] = useState(false);
@@ -146,49 +151,68 @@ const [checkedNo2, setCheckedNo2] = useState(false);
   const handleNextButtonPress = async () => {
     try {
       const requestData = {
-        checkedYes1,
-        checkedNo1,
-        checkedYes2,
-        checkedNo2,
-        purpose,
-        requestTitle,
-        requestDate,
-        deadlineDate,
-        currentLocation,
-        description,
-        goal,
-        responseViaEmail,
-        responseViaPhone,
-        responseViaOther,
-        contactDetails,
-        selectedFile,
+        Request_Title: requestTitle,
+        Purpose: purpose?.value,
+        CreatedBy: "CRNApp, MobileAPPMember",
+        Request_Date: requestDate.toLocaleDateString(),
+        Deadline: deadlineDate.toLocaleDateString(),
+        Status: "Submitted",
+        Closed: "No",
+        Item_Code_ID: "19",
+        Member_ID: "2",
+        Organization_Name: "Galaxux",
+        Request_Purpose: purpose?.label,
+        Description: description,
+        Response_Notes: responseViaEmail ? "Email" : (responseViaPhone ? "Phone" : "Other"),
+        Other_Contact_Notes: contactDetails,
+        Client_Location_Name: currentLocation?.label,
+        FullFilledBy_Member_ID: "0",
+        FEmail: "",
+        FMemberName: "",
+        FOrganization_Name: "",
+        Close_Date: "01/01/1900",
       };
   
-      // Uncomment this section when you want to make an API request
-      // const response = await axios.post(
-      //   'http://crnmobileapp.com/api/CRN/CRNRequestAPI',
-      //   requestData,
-      // );
+      // Log the data for testing
+      console.log("Request Data:", requestData);
   
-      // Console log the data for testing
-      console.log(requestData);
+      // API parameters for the CRNRequestAPI
+      const apiParameters = {
+        UserName: 'MobileAppMember',  // Replace with your actual username
+        Password: 'password',         // Replace with your actual password
+        ParameterType: 6,             // Replace with the correct parameter type
+        MemberID: 2,                  // Replace with the correct member ID
+        mRequestAPI: null,
+        TokenValues: justToken,
+        RequestID: 0,
+        mMemberAPI: null,
+      };
   
-      // Uncomment this section to handle the API response
-      // if (response.data.success) {
-      //   // Assuming you are using React Navigation
-      //   // navigation.navigate('NextScreen', { data: response.data });
+      // Make an API request
+      const apiEndpoint = 'http://crnmobileapp.com/api/CRN/CRNRequestAPI';
+      const response = await axios.post(apiEndpoint, { ...requestData, ...apiParameters });
   
-      //   // Log the data sent to the next screen
-      //   console.log('Data sent to the next screen:', response.data);
-      // } else {
-      //   console.error('API request failed:', response.data.error);
-      //   // Handle API error, show an alert, et̀c.
-      // }
+      // Log the API response for testing
+      console.log("API Response:", response.data);
+  
+      // Handle the API response
+      if (response.data.success) {
+        // Assuming you are using React Navigation
+        // navigation.navigate('NextScreen', { data: response.data });
+  
+        // Log the data sent to the next screen
+        console.log('Data sent to the next screen:', response.data);
+      } else {
+        console.error('API request failed:', response.data.error);
+        // Handle API error, show an alert, etc.
+      }
     } catch (error) {
       console.error('Error making API request:', error);
       // Handle network errors, unexpected errors, etc.
     }
   };
+  
+
   
 
   const handleCurrentLocationChange = value => {
@@ -641,6 +665,7 @@ const [checkedNo2, setCheckedNo2] = useState(false);
         {/* "Next" Button */}
         <TouchableOpacity
           onPress={()=>{
+            handleNextButtonPress()
             navigation.navigate('region')
           }}
           style={{

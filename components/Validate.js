@@ -7,8 +7,11 @@ import axios from 'axios';
 
 const Validate = ({ route }) => {
   const navigation = useNavigation()
-  const { newToken } = route.params;
+  const { newToken , NewRequest} = route.params;
   console.log("validate token ", newToken);
+  console.log('requestbody' , NewRequest)
+
+
 
   const justToken = JSON.parse(newToken);
 
@@ -54,7 +57,34 @@ const Validate = ({ route }) => {
           },
           {
             text: 'Next',
-            onPress: () => navigation.navigate('createNewRequest'),
+            onPress: async () => {
+              try {
+                const response = await axios.post('http://crnmobileapp.com/api/CRN/CRNRequestAPI', NewRequest);
+                const data = JSON.parse(response.data);
+                console.log(response.data)
+          
+                if (data.ErrorCode === '0') {
+                  console.log(data.ResponseMessage);
+
+          
+                  const newToken = JSON.stringify(data.ResponseMessage);
+                  
+                
+          
+                  navigation.navigate('createNewRequest', { newToken  , NewRequest});
+                } else {
+                  console.log(data.ResponseMessage || 'An unexpected error occurred');
+                }
+              } catch (error) {
+                setError('An unexpected error occurred');
+                console.error('Error:', error.message);
+              }
+              
+
+              
+              
+              
+             },
           },
         ],
         { cancelable: false }
